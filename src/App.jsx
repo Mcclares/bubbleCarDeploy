@@ -191,8 +191,8 @@ function App() {
             const menuButtons = [];
             const fontLoader = new FontLoader();
             const fontPath = language === 'ru'
-                ? '/assets/fonts/Tektur_Regular.json'
-                : '/assets/fonts/Iceland_Regular.json';
+                ? '/fonts/Tektur_Regular.json'
+                : '/fonts/Iceland_Regular.json';
             fontLoader.load(fontPath, font => {
                 // Удаляем старые текстовые объекты
                 textMeshesRef.current.forEach(mesh => {
@@ -295,7 +295,7 @@ function App() {
             };
     
             const gltfLoader = new GLTFLoader(manager);
-            gltfLoader.load('./assets/vbk.glb', (gltfScene) => {
+            gltfLoader.load('/vbk.glb', (gltfScene) => {
                 const model = gltfScene.scene;
                 model.position.set(0, -50, 0); // было (0, 0, 0)
                 model.scale.set(2, 2, 2);
