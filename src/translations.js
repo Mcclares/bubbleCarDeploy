@@ -88,7 +88,7 @@
         notes: "Дополнительные заметки",
         bookButton: "Записаться",
         open: "Открыто: Пн-Пт 9-18",
-        priceList: "Прайс",
+        priceList: "Прейскурант",
         noServicesSelected: "Услуги не выбраны.",
         selectService: "Выбрать услуги",
         total: "Всего",
