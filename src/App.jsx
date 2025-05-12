@@ -318,10 +318,20 @@ function App() {
                     sceneInitRef.current.animationActions.push(action);
                 });
             });
+
+            const canvas = sceneInitRef.current.renderer.domElement;
+            canvas.addEventListener('click', handleModelClick);
+            canvas.addEventListener('touchstart', handleModelClick);
+            canvas.addEventListener('mousemove', handleMouseMove);
+            
             return () =>
             {
                 window.removeEventListener('click', handleModelClick);
                 window.removeEventListener('touchstart', handleModelClick);
+
+                canvas.removeEventListener('click', handleModelClick);
+                canvas.removeEventListener('touchstart', handleModelClick);
+                canvas.removeEventListener('mousemove', handleMouseMove);
             }
         });
         

@@ -8,6 +8,11 @@ html, body, #root {
 
 canvas {
   display: block;
+  touch-action: auto; /* или none, если ты хочешь сам контролировать */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }
 .loading-overlay {
   position: fixed;
