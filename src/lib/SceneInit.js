@@ -80,15 +80,16 @@ export default class SceneInit {
     this.renderer = new THREE.WebGLRenderer({
       canvas,
       antialias: true,
-      powerPreference: "high-performance" // Важно для мобильных устройств
+      powerPreference: "high-performance" 
     });
-    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    const DPR = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2);
+    this.renderer.setPixelRatio(DPR);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
     
     this.clock = new THREE.Clock();
-    this.stats = Stats();
-    document.body.appendChild(this.stats.dom);
+    // this.stats = Stats();
+    // document.body.appendChild(this.stats.dom);
     
     window.addEventListener('resize', () => this.onWindowResize(), false);
 
@@ -101,9 +102,9 @@ export default class SceneInit {
   addInstagramCubeWithLink() {
     const loader = new THREE.TextureLoader();
 
-    loader.load('https://upload.wikimedia.org/wikipedia/commons/a/a5/Instagram_icon.png', (logoTexture) => {
+    loader.load('/instagram.png', (logoTexture) => {
       const size = 200;
-      const geometry = new THREE.BoxGeometry(size, size, size);
+      const geometry = new THREE.BoxGeometry(size, size, 50);
 
       const gradientMaterial = new THREE.MeshStandardMaterial({
         color: 0xffffff,
@@ -122,7 +123,7 @@ export default class SceneInit {
       ];
 
       const cube = new THREE.Mesh(geometry, materials);
-      cube.position.set(300, -10, -650); // можно поменять
+      cube.position.set(300, -10, -600); // можно поменять
       cube.name = 'instagramCube'; // используем для клика
       cube.userData.link = 'https://www.instagram.com/vbk.detailing?igsh=YzZidmc0Y2s4MmFp&utm_source=qr'; 
       cube.castShadow = true;
@@ -219,7 +220,7 @@ export default class SceneInit {
         this.mixer.update(delta);
     }
     
-    this.stats.update();
+    // this.stats.update();
 
     if (this.controls?.enabled) {
       this.controls.update();

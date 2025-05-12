@@ -183,11 +183,11 @@ function App() {
             backgroundTexture.current = texture;
             const test = new SceneInit('myThreeJsCanvas');
             sceneInitRef.current = test;
-            
+
             test.initialize(texture);
             test.animate();
             test.addInstagramCubeWithLink();
-            
+
             const menuButtons = [];
             const fontLoader = new FontLoader();
             const fontPath = language === 'ru'
@@ -201,7 +201,7 @@ function App() {
                     mesh.material.dispose();
                 });
 
-                const newMeshes = currentLabels.map(({ label, modal, position, rotation, size }) => {
+                const newMeshes = currentLabels.map(({label, modal, position, rotation, size}) => {
                     const textGeometry = new TextGeometry(label, {
                         font,
                         size,
@@ -234,39 +234,40 @@ function App() {
 
                 setTimeout(() => {
                     window.addEventListener('click', handleModelClick);
+                    window.addEventListener('touchstart', handleModelClick);
                     window.addEventListener('mousemove', handleMouseMove); // ← ЭТО ДОБАВЬ
                 }, 0);
             });
 
 
-            const { light: leftFlareLight, lensflare: leftFlare } = createLensFlare(77);
-            const { light: rightFlareLight, lensflare: rightFlare } = createLensFlare(-80);
-    
-            leftFlareRef.current = { light: leftFlareLight, lensflare: leftFlare };
-            rightFlareRef.current = { light: rightFlareLight, lensflare: rightFlare };
-    
+            const {light: leftFlareLight, lensflare: leftFlare} = createLensFlare(77);
+            const {light: rightFlareLight, lensflare: rightFlare} = createLensFlare(-80);
+
+            leftFlareRef.current = {light: leftFlareLight, lensflare: leftFlare};
+            rightFlareRef.current = {light: rightFlareLight, lensflare: rightFlare};
+
             test.scene.add(leftFlareLight);
             test.scene.add(rightFlareLight);
-       
+
             const ambientLight = new THREE.AmbientLight(0xffffff, 5);
             ambientLight.castShadow = false;
             test.scene.add(ambientLight);
-    
+
             const directionalLight = new THREE.DirectionalLight(0xffffff, 5);
             directionalLight.position.set(100, 200, 300);
             directionalLight.castShadow = true;
-    
+
             directionalLight.shadow.mapSize.width = 2048;
             directionalLight.shadow.mapSize.height = 2048;
             directionalLight.shadow.camera.near = 0.5;
             directionalLight.shadow.camera.far = 1000;
-    
+
             test.scene.add(directionalLight);
-            
+
             const targetObject = new THREE.Object3D();
             targetObject.position.set(0, 0, 0);
             test.scene.add(targetObject);
-            
+
             const lightUp = new THREE.SpotLight(0xffffff, 0);
             lightUp.position.set(0, 500, 0);
             lightUp.angle = Math.PI / 3;
@@ -274,13 +275,13 @@ function App() {
             lightUp.penumbra = 0.3;
             lightUp.decay = 1;
             lightUp.castShadow = true;
-    
+
             lightUp.target = targetObject;
             test.scene.add(lightUp);
             lightUpRef.current = lightUp;
-    
+            // test.addInstagramCubeWithLink();
             test.scene.add(lightUp);
-            
+
             let loadedModel;
             const manager = new THREE.LoadingManager();
             manager.onProgress = (url, itemsLoaded, itemsTotal) => {
@@ -293,7 +294,7 @@ function App() {
                     setIsLoading(false);
                 }, 500);// небольшая пауза для UX
             };
-    
+
             const gltfLoader = new GLTFLoader(manager);
             gltfLoader.load('/vbk.glb', (gltfScene) => {
                 const model = gltfScene.scene;
@@ -305,7 +306,7 @@ function App() {
                 const buttonLight = new THREE.PointLight(0xff0000, 1, 10);
                 buttonLight.position.set(0, 56, 96);
                 model.add(buttonLight);
-                
+
                 test.scene.add(model);
                 sceneInitRef.current.mixer = new THREE.AnimationMixer(model);
                 sceneInitRef.current.animationActions = [];
@@ -317,7 +318,11 @@ function App() {
                     sceneInitRef.current.animationActions.push(action);
                 });
             });
-            return () => window.removeEventListener('click', handleModelClick);
+            return () =>
+            {
+                window.removeEventListener('click', handleModelClick);
+                window.removeEventListener('touchstart', handleModelClick);
+            }
         });
         
     }, [language]);
