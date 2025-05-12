@@ -39,6 +39,8 @@
         start: "Start",
         aboutBtn: "About",
         mapBtn: "Map",
+        priceFrom: "From {price}€",
+        priceFromTotal: "Starting from: {value}€", // EN
         bookingBtn: "Booking",
         placeholderName: "Enter your name",
         placeholderEmail: "Enter your email",
@@ -68,6 +70,7 @@
         feature1: "Премиум услуги",
         feature2: "Опытные мастера",
         feature3: "Рейтинг 5 звезд",
+        priceFromTotal: "Цена от: {value}€", // RU
         placeholderName: "Введите ваше имя",
         placeholderEmail: "Введите ваш email",
         placeholderPhone: "Введите номер телефона",
@@ -106,6 +109,7 @@
         Мы работаем с любовью и точностью и гарантируем качество! 🔥`,
         selectLang: "Выберите язык",
         start: "Старт",
+        priceFrom: "От {price}€",
 
         services: [
             { label: 'Шампунь-мойка', price: 25 },
@@ -125,6 +129,7 @@
     et: {
         aboutUs: "Meist",
         findUs: "Leia meid",
+        priceFrom: "Al. {price}€",
         schedule: "Broneeri aeg",
         aboutText2: "Asutatud 2010. aastal, oleme pakkunud klientidele kõrgeima kvaliteediga teenuseid.",
         feature1: "Premium teenused",
@@ -138,6 +143,7 @@
         name: "Täisnimi",
         email: "E-post",
         phone: "Telefon",
+        priceFromTotal: "Alates: {value}€", // ET
         placeholderName: "Sisesta oma nimi",
         placeholderEmail: "Sisesta oma e-post",
         placeholderPhone: "Sisesta telefoninumber",

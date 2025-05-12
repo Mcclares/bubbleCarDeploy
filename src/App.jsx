@@ -497,10 +497,14 @@ function App() {
                                         checked={selected.includes(index)}
                                         onChange={() => toggle(index)}
                                     />
-                                    {service.label} — <b>{service.price}€</b>
+                                    {service.label} — {t.priceFrom.replace('{price}', service.price)}
                                 </label>
                             ))}
-                            <div className="total-line">{t.total}: <strong>{total}€</strong></div>
+                            <div className="total-line">
+                                {t.priceFromTotal.split('{value}')[0]}
+                                <strong>{total}</strong>
+                                {t.priceFromTotal.split('{value}')[1]}
+                            </div>
                             {selected.length > 0 && (
                                 <button
                                     className="submit-button"
@@ -513,12 +517,12 @@ function App() {
                                     {t.bookButton}
                                 </button>
                             )}
-                            
+
                         </div>
                     </div>
                 </div>
             )}
-            
+
 
             {/* Map Modal */}
             {activeModal === 'map' && (
