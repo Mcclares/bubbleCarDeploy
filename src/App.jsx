@@ -551,7 +551,7 @@ function App() {
                                 <h3>{t.visitUs}</h3>
                                 <p>Jalaka 77 Boks 6,50105, Tartu</p>
                                 <p>{t.open}</p>
-                                <p>{t.phone}: (123) 456-7890</p>
+                                <p>{t.phone}: +372 58956299</p>
                             </div>
                         </div>
                     </div>
