@@ -82,7 +82,9 @@ export default class SceneInit {
       antialias: true,
       powerPreference: "high-performance" 
     });
-    const DPR = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2);
+    // const DPR = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2);
+    const isTablet = /iPad|Tablet|PlayBook|Nexus 7|Nexus 10|KFAPWI/i.test(navigator.userAgent);
+    const DPR = isTablet ? 0.75 : (window.innerWidth < 1024 ? 1 : Math.min(window.devicePixelRatio, 2));
     this.renderer.setPixelRatio(DPR);
     this.renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(this.renderer.domElement);
