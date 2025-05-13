@@ -179,7 +179,7 @@ function App() {
             // }
         ];
         const loader = new THREE.TextureLoader();
-        loader.load('/texture.png', (texture) => {
+        loader.load('/preview.jpg', (texture) => {
             backgroundTexture.current = texture;
             const test = new SceneInit('myThreeJsCanvas');
             sceneInitRef.current = test;
