@@ -79,7 +79,7 @@ export default class SceneInit {
     const canvas = document.getElementById(this.canvasId);
     this.renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: true,
+      antialias: !isTablet,
       powerPreference: "high-performance" 
     });
     // const DPR = window.innerWidth < 768 ? 1 : Math.min(window.devicePixelRatio, 2);
