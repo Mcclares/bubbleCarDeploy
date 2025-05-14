@@ -37,6 +37,15 @@ function App() {
     const textMeshesRef = useRef([]); // Сюда будем сохранять 3D-тексты
     const [isPlayingInto, setPlayingIntro] = useState(true);
 
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        date: '',
+        time: '',
+        notes: ''
+    });
+
     const [preselectedServices, setPreselectedServices] = useState([]);
     const [buttonLabels, setButtonLabels] = useState([]);
     const services = t.services;
@@ -390,20 +399,14 @@ function App() {
     const handleBookingSubmit = (e) => {
         e.preventDefault();
 
-        const form = e.target;
-        const name = form.name.value.trim();
-        const email = form.email.value.trim();
-        const phone = form.phone.value.trim();
-        const date = form.date.value;
-        const time = form.time.value;
-        const notes = form.notes.value.trim();
+        const { name, email, phone, date, time, notes } = formData;
 
         if (!name || !email || !phone || !date || !time || (!preselectedServices.length && !customService)) {
             alert("Please fill all required fields including service.");
             return;
         }
 
-        const formData = {
+        const submissionData = {
             name,
             email,
             phone,
@@ -413,9 +416,17 @@ function App() {
             services: preselectedServices.length > 0 ? preselectedServices.join(', ') : customService
         };
 
-        emailjs.send('service_ni7464l', 'template_4vmnv2v', formData, '6SZyY9TdH8gJ4mx1J')
+        emailjs.send('service_ni7464l', 'template_4vmnv2v', submissionData, '6SZyY9TdH8gJ4mx1J')
             .then(() => {
                 alert("✅ Email sent!");
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    date: '',
+                    time: '',
+                    notes: ''
+                });
                 setPreselectedServices([]);
                 closeModal();
             }, (error) => {
@@ -572,18 +583,36 @@ function App() {
                             <form className="booking-form" onSubmit={handleBookingSubmit}>
                                 <div className="form-group">
                                     <label htmlFor="name">{t.name}</label>
-                                    <input type="text" id="name" placeholder={t.placeholderName}/>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        value={formData.name}
+                                        onChange={(e) => setFormData(prev => ({...prev, name: e.target.value}))}
+                                        placeholder={t.placeholderName}
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="email">{t.email}</label>
-                                    <input type="email" id="email" placeholder={t.placeholderEmail}/>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        value={formData.email}
+                                        onChange={(e) => setFormData(prev => ({...prev, email: e.target.value}))}
+                                        placeholder={t.placeholderEmail}
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="phone">{t.phone}</label>
-                                    <input type="tel" id="phone" placeholder={t.placeholderPhone}/>
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        value={formData.phone}
+                                        onChange={(e) => setFormData(prev => ({...prev, phone: e.target.value}))}
+                                        placeholder={t.placeholderPhone}
+                                    />
                                 </div>
                                 <div className="form-group">
-                                <label>{t.service}</label>
+                                    <label>{t.service}</label>
                                     {preselectedServices.length > 0 ? (
                                         <ul>
                                             {preselectedServices.map((label, i) => (
@@ -609,15 +638,35 @@ function App() {
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="date">{t.date}</label>
-                                    <input type="date" id="date"/>
+                                    <input
+                                        type="date"
+                                        id="date"
+                                        value={formData.date}
+                                        onChange={(e) => setFormData(prev => ({...prev, date: e.target.value}))}
+                                        placeholder=""
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="time">{t.time}</label>
-                                    <input type="time" id="time" min="09:00" max="18:00"/>
+                                    <input
+                                        type="time"
+                                        id="time"
+                                        min="09:00"
+                                        max="18:00"
+                                        value={formData.time}
+                                        onChange={(e) => setFormData(prev => ({...prev, time: e.target.value}))}
+                                        placeholder=""
+                                    />
                                 </div>
                                 <div className="form-group">
                                     <label htmlFor="notes">{t.notes}</label>
-                                    <textarea id="notes" rows="3" placeholder={t.placeholderNotes}></textarea>
+                                    <textarea
+                                        id="notes"
+                                        rows="3"
+                                        value={formData.notes}
+                                        onChange={(e) => setFormData(prev => ({...prev, notes: e.target.value}))}
+                                        placeholder={t.placeholderNotes}
+                                    />
                                 </div>
                                 <button type="submit" className="submit-button">{t.bookButton}</button>
                             </form>
